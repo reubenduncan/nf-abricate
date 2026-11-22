@@ -1,0 +1,3 @@
+sample,fasta
+siteA_surface,assemblies/siteA_surface.fasta.gz
+siteA_handpump,s3://example-bucket/assemblies/siteA_handpump.fasta.gz
