@@ -1,7 +1,7 @@
 process FORMAT_ABRICATE_DB {
     tag "$database"
     label 'light'
-    container 'python:3.11-slim-bookworm'
+    container 'python:3.11-bookworm'
 
     input:
     tuple val(database), path(reference)

@@ -1,0 +1,47 @@
+#!/bin/sh
+# Minimal /proc-backed compatibility implementation for Nextflow's task
+# resource monitor in small container images that omit procps.
+set -eu
+
+read_proc_status() {
+    status_file=$1
+    proc_name=unknown
+    proc_ppid=0
+    while IFS=: read -r key value; do
+        case "$key" in
+            Name) set -- $value; proc_name=${1:-unknown} ;;
+            PPid) set -- $value; proc_ppid=${1:-0} ;;
+        esac
+    done < "$status_file"
+}
+
+if [ "$#" -eq 5 ] && [ "$1" = "-e" ] && [ "$2" = "-o" ] && [ "$3" = "pid=" ] && [ "$4" = "-o" ] && [ "$5" = "ppid=" ]; then
+    for status in /proc/[0-9]*/status; do
+        [ -r "$status" ] || continue
+        pid=${status#/proc/}
+        pid=${pid%/status}
+        read_proc_status "$status"
+        printf '%s %s\n' "$pid" "$proc_ppid"
+    done
+    exit 0
+fi
+
+if [ "$#" -eq 2 ] && [ "$1" = "f" ] && [ "$2" = "x" ]; then
+    for status in /proc/[0-9]*/status; do
+        [ -r "$status" ] || continue
+        pid=${status#/proc/}
+        pid=${pid%/status}
+        read_proc_status "$status"
+        printf '%s %s %s\n' "$pid" "$proc_ppid" "$proc_name"
+    done
+    exit 0
+fi
+
+for candidate in /usr/bin/ps /bin/ps; do
+    if [ -x "$candidate" ] && [ "$candidate" != "$0" ]; then
+        exec "$candidate" "$@"
+    fi
+done
+
+printf '%s\n' 'ps compatibility helper supports only Nextflow process-tree queries' >&2
+exit 1

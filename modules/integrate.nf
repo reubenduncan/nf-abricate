@@ -1,7 +1,7 @@
 process INTEGRATE_FEATURES {
     tag "$sample"
     label 'light'
-    container 'python:3.11-slim-bookworm'
+    container 'python:3.11-bookworm'
     memory '4 GB'
     maxForks 2
 

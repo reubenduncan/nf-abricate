@@ -77,9 +77,9 @@ On a managed compute environment that runs processes locally with Singularity, p
 - Prodigal 2.6.3 (`quay.io/biocontainers/prodigal:2.6.3--h577a1d6_11`)
 - ABRicate 1.4.0 (`quay.io/biocontainers/abricate:1.4.0--h05cac1d_0`)
 - ISEScan 1.7.3 (`quay.io/biocontainers/isescan:1.7.3--hab16a5f_1`)
-- Python 3.11 (`python:3.11-slim-bookworm`) for reference formatting and feature integration
+- Python 3.11 (`python:3.11-bookworm`) for reference formatting, assembly decompression, and feature integration
 
-Tool processes use version-tagged public containers; the small integration steps use the official Python 3.11 slim image. The workflow retries tasks that exit with common termination signals twice, which helps recover from transient preemption; other task errors stop the run for diagnosis.
+Tool processes use version-tagged public containers; Python steps use the official Python 3.11 Bookworm image. A small `/proc`-backed `ps` compatibility command supports Nextflow's task monitor in minimal images. The workflow retries tasks that exit with common termination signals twice, which helps recover from transient preemption; other task errors stop the run for diagnosis.
 
 ## Interpretation and limitations
 
