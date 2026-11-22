@@ -13,7 +13,7 @@ process PREPARE_ASSEMBLY {
 
     script:
     """
-    python3 "${projectDir}/bin/prepare_assembly.py" \\
+    prepare_assembly.py \\
         --input "${fasta}" \\
         --output "${sample}.assembly.fasta"
     """

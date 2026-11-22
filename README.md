@@ -79,7 +79,7 @@ On a managed compute environment that runs processes locally with Singularity, p
 - ISEScan 1.7.3 (`quay.io/biocontainers/isescan:1.7.3--hab16a5f_1`)
 - Python 3.11 (`python:3.11-bookworm`) for reference formatting, assembly decompression, and feature integration
 
-Tool processes use version-tagged public containers; Python steps use the official Python 3.11 Bookworm image. A small `/proc`-backed `ps` compatibility command supports Nextflow's task monitor in minimal images. The workflow retries tasks that exit with common termination signals twice, which helps recover from transient preemption; other task errors stop the run for diagnosis.
+Tool processes use version-tagged public containers; Python steps use the official Python 3.11 Bookworm image. Wave bundles the executable helper scripts from `bin/` into cloud task images. A small `/proc`-backed `ps` compatibility command supports Nextflow's task monitor in minimal images. The workflow retries tasks that exit with common termination signals twice, which helps recover from transient preemption; other task errors stop the run for diagnosis.
 
 ## Interpretation and limitations
 

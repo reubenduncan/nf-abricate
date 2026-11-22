@@ -16,7 +16,7 @@ process INTEGRATE_FEATURES {
 
     script:
     """
-    python3 "${projectDir}/bin/integrate_features.py" \\
+    integrate_features.py \\
         --sample "${sample}" \\
         --assembly "${assembly}" \\
         --prodigal-gff "${prodigal_gff}" \\

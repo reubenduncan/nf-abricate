@@ -12,7 +12,7 @@ process FORMAT_ABRICATE_DB {
 
     script:
     """
-    python3 "${projectDir}/bin/prepare_abricate_db.py" \\
+    prepare_abricate_db.py \\
         --database "${database}" \\
         --input "${reference}" \\
         --output "${database}.abricate.fasta" \\
